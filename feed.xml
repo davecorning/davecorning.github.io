@@ -6,9 +6,73 @@
 </description>
     <link>http://davecorning.com/</link>
     <atom:link href="http://davecorning.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 13 May 2015 23:25:20 +0900</pubDate>
-    <lastBuildDate>Wed, 13 May 2015 23:25:20 +0900</lastBuildDate>
+    <pubDate>Thu, 14 May 2015 00:23:26 +0900</pubDate>
+    <lastBuildDate>Thu, 14 May 2015 00:23:26 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>The Lenovo Thinkpad T450s</title>
+        <description>&lt;p&gt;I love laptops, and I love finding laptops that can be made to run Linux
+successfully (meaning sound, WiFi, video, function keys, hibernate/resume work).&lt;/p&gt;
+
+&lt;p&gt;Every 18-24 months, I get the urge to replace a perfectly functional, not-that-old
+laptop with a newer model.  Given my specific requirements, I don’t usually have
+too many models to choose from.&lt;/p&gt;
+
+&lt;p&gt;This time around, I decided to go with the Lenovo Thinkpad t450s, because it
+seemed like the best fit given all my requirements:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A &lt;strong&gt;minimum&lt;/strong&gt; screen resolution of 1600x900.  136x768 is an immediate
+disqualification.  The t450s I ordered came with a resolution of 1920x1080.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A replaceable hard drive.  I want the ability to swap out the stock drive
+with my own SSD, which, in addition to driving down the cost of the laptop
+itself, frees me from having to transfer hundreds of gigs of VM
+guests, etc.  Since I’m using Linux, it’s also usually not necessary to
+re-install the OS.  Just swap the drives and go.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A 13” or 14” &lt;strong&gt;non&lt;/strong&gt;-touchscreen display.  The t450s gave me the choice between
+a touchscreen and non-touchscreen 14” display.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An Intel WiFi module.  I try to avoid those terrible Broadcom chipsets if I
+can, primarily due to poor Linux drivers (and poor support).  A decent Intel WiFi
+module is always about $20 away on Amazon.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Minimum 12 GB of RAM.  This is a hard requirement.  I don’t want to have to
+think about memory contention while running docker containers, postgres, redis,
+apache, ruby/puma, VM guests, and the usual dozen-or-more-tab Firefox and Chrome
+sessions (with JS debuggers).   I had initially looked at the Dell XPS developer
+edition laptop, but it is limited to a maximum of 8 GB of RAM.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A battery that can last for at least 5 hours.  This is a recent one; it is
+honestly the only gripe I have with my previous “daily driver” laptop.  I think
+this is where the t450s really shines.  It comes with 2x 3 cell batteries (one
+internal, one removable), and I was able to also buy an additional 6 cell battery.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A docking station (more of a “nice to have” than a hard requirement).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://news.lenovo.com/images/20034/Lenovo%20ThinkPad%20T450s%20Spec%20Sheet.pdf&quot;&gt;t450s&lt;/a&gt; has a beautiful screen, a very nice keyboard, a long battery life, and
+of course, it runs Linux, although the Linux setup was not without its share of
+challenges.  (More on that in another post).&lt;/p&gt;
+
+&lt;p&gt;-dave&lt;/p&gt;
+</description>
+        <pubDate>Wed, 13 May 2015 23:27:56 +0900</pubDate>
+        <link>http://davecorning.com/2015/05/13/the-lenovo-thinkpad-t450s.html</link>
+        <guid isPermaLink="true">http://davecorning.com/2015/05/13/the-lenovo-thinkpad-t450s.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Hello, World</title>
