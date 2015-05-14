@@ -270,6 +270,8 @@ pre {
     margin-bottom: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid #e8e8e8; }
+  .post-list > li:last-child {
+    border-bottom: 1px solid transparent; }
 
 .post-meta {
   font-size: 14px;
