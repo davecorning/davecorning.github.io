@@ -6,9 +6,70 @@
 </description>
     <link>http://davecorning.com/</link>
     <atom:link href="http://davecorning.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 May 2015 19:29:26 +0900</pubDate>
-    <lastBuildDate>Sat, 16 May 2015 19:29:26 +0900</lastBuildDate>
+    <pubDate>Wed, 20 May 2015 13:48:04 +0900</pubDate>
+    <lastBuildDate>Wed, 20 May 2015 13:48:04 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Fedora 21 on the Lenovo Thinkpad T450s</title>
+        <description>&lt;h3 id=&quot;as-of-may-2015-running-linux-on-a-laptop-with-an-intel-broadwell-cpu-is-not-without-its-share-of-minor-inconveniences-depending-on-your-use-case--fortunately-there-are-workarounds&quot;&gt;As of May, 2015, running Linux on a laptop with an Intel Broadwell CPU is not without its share of “minor inconveniences,” depending on your use case.  Fortunately, there are workarounds.&lt;/h3&gt;
+
+&lt;p&gt;Although I was able to rather effortlessly put Fedora 21 on
+&lt;a href=&quot;/2015/05/13/the-lenovo-thinkpad-t450s.html&quot;&gt;my new thinkpad&lt;/a&gt;, I quickly encountered problems with video playback and VirtualBox.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;My first assumption was that I might have a hardware problem, so I tried to rule out that possibility by booting into the Lenovo built-in hardware diagnostics software and running the complete suite of tests.&lt;/p&gt;
+
+&lt;p&gt;I tried a &lt;a href=&quot;https://fedoraproject.org/wiki/Kernel_Vanilla_Repositories&quot;&gt;vanilla mainline kernel&lt;/a&gt; and then I installed the most recent Fedora 22 beta, but the video and VirtualBox issues persisted.  The sneak peek of KDE in Fedora 22 does look pretty good, however. :-)&lt;/p&gt;
+
+&lt;h3 id=&quot;problem--1-video-playback-artifacts&quot;&gt;Problem # 1: Video playback artifacts&lt;/h3&gt;
+&lt;p&gt;Playing any video through vlc reveals artifacts like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/simpsons_video_artifacts.png&quot; width=&quot;640px&quot; height=&quot;480px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I came accross &lt;a href=&quot;http://askubuntu.com/questions/594451/14-04-thinkpad-t450-text-getting-messed-up-on-large-screens&quot;&gt;numerous&lt;/a&gt; &lt;a href=&quot;https://bugs.launchpad.net/xserver-xorg-video-intel/+bug/1432194&quot;&gt;discussions&lt;/a&gt; regarding video problems on laptops that use Broadwell CPUs.  Although I’m not using Ubuntu, and I’m not experiencing the corrupted text problems discussed on those posts, the discussions nevertheless led me to a workaround.&lt;/p&gt;
+
+&lt;p&gt;It would appear that my video corruption issues might be related to using &lt;a href=&quot;http://en.wikipedia.org/wiki/SNA_%28computer_graphics%29&quot;&gt;SNA (Sandybridge’s New Acceleration)&lt;/a&gt;.  As I understand it, there are two acceleration methods for Intel GPUs; UXA (older, slower, more stable) and SNA.  Fedora 21 appears to prefer SNA, so I switched to UXA and restarted X and lo and behold, my video playback corruption issues are gone.&lt;/p&gt;
+
+&lt;p&gt;To switch from SNA to UXA, create the file &lt;code&gt;etc/X11/xorg.conf.d/20-intel.conf&lt;/code&gt;, paste the lines below and restart X.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# etc/X11/xorg.conf.d/20-intel.conf
+Section &quot;Device&quot;
+   Identifier  &quot;Intel Graphics&quot;
+   Driver      &quot;intel&quot;
+   Option      &quot;AccelMethod&quot;  &quot;uxa&quot;
+EndSection
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Clearly more work is needed on the SNA driver.  :-(&lt;/p&gt;
+
+&lt;h3 id=&quot;problem--2-a-known-bug-with-virtualbox-on-broadwell-cpus-causes-x-to-lock-up&quot;&gt;Problem # 2. A known bug with VirtualBox on Broadwell CPUs causes X to lock up.&lt;/h3&gt;
+&lt;p&gt;This one mainfests itself when you try to launch a guest VM in VirtualBox (which is, as of May 2015, at version 4.3.26).  Launching any guest (I tried Windows 7 and Centos 6 guests with 4 GB and 1 GB of ram, respectively) triggered this lockup.  When it happens, the gui locks up hard.  Mouse and keyboard no longer respond, although the host is still pingable and can be accessed remotely via ssh; the only recourse at this point is to reboot.&lt;/p&gt;
+
+&lt;p&gt;I took the opportunity to migrate the guests to KVM in the name of troubleshooting.  I was able to launch all guests successfully, which made me think this must be a VirtualBox bug on Linux hosts with Broadwell CPUs.&lt;/p&gt;
+
+&lt;p&gt;Further googling revealed at least &lt;a href=&quot;http://forums.fedoraforum.org/showthread.php?p=1731595&quot;&gt;one other user of fedora&lt;/a&gt; with the same problem.  The poster on the fedora forum helpfully shared some links to the &lt;a href=&quot;https://forums.virtualbox.org/viewtopic.php?f=7&amp;amp;t=67516&amp;amp;p=319885&amp;amp;hilit=fedora#p319885&quot;&gt;VirtualBox forums&lt;/a&gt; and &lt;a href=&quot;https://www.virtualbox.org/ticket/13961&quot;&gt;VirtualBox’s issue tracker&lt;/a&gt; which confirmed my earlier suspicions.  This is indeed a bug with VirtualBox on Broadwell CPUs, and it looks like it is being actively worked on.&lt;/p&gt;
+
+&lt;p&gt;It looks like I’ll be using KVM for a while until this bug is fixed.&lt;/p&gt;
+
+&lt;h3 id=&quot;hardware-lister-lshw&quot;&gt;Hardware Lister (lshw)&lt;/h3&gt;
+
+&lt;p&gt;One positive outcome of all this testing / bug hunting / googling / experimenting was the discovery of the &lt;a href=&quot;http://www.ezix.org/project/wiki/HardwareLiSter&quot;&gt;lshw utility&lt;/a&gt;.  How cool!  I would encourage every owner of a laptop that runs linux to keep this utility within arm’s reach, so to speak.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;All in all, as is always the case with Linux, the road is not without its share of bumps.  I’ll be keeping an eye on SNA in particular, and updating the blog as things change.&lt;/p&gt;
+
+&lt;p&gt;-dave&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 20 May 2015 13:46:27 +0900</pubDate>
+        <link>http://davecorning.com/2015/05/20/fedora-21-on-the-lenovo-thinkpad-t450s.html</link>
+        <guid isPermaLink="true">http://davecorning.com/2015/05/20/fedora-21-on-the-lenovo-thinkpad-t450s.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>The Lenovo Thinkpad T450s</title>
